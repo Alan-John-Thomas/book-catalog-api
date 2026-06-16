@@ -1,15 +1,25 @@
-### Get all books (Should be empty at first)
+### Get all books
 GET http://localhost:8080/api/books
 
 ###
 
-### Create a new book
+### Create a new book (Run this first to add ID 1)
 POST http://localhost:8080/api/books
 Content-Type: application/json
 
 {
   "title": "The Fellowship of the Ring",
   "author": "J.R.R. Tolkien",
-  "isbn": "978-0261153573",
-  "publishedYear": 1957
+  "isbn": "978-0261103573",
+  "publishedYear": 1954
 }
+
+###
+
+### Get a specific book by ID (Should return the book you just created)
+GET http://localhost:8080/api/books/1
+
+###
+
+### Get a non-existent book by ID (Should return 404 Not Found)
+GET http://localhost:8080/api/books/999
