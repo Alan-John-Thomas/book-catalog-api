@@ -32,4 +32,26 @@ public class BookController {
         return bookRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
     }
+
+    @PutMapping("/{id}")
+    public Book putBook(@PathVariable Long id,@RequestBody Book bookDetails){
+        Book existingBook = bookRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
+
+        existingBook.setAuthor(bookDetails.getAuthor());
+        existingBook.setIsbn(bookDetails.getIsbn());
+        existingBook.setPublishedYear(bookDetails.getPublishedYear());
+        existingBook.setTitle(bookDetails.getTitle());
+
+        return bookRepository.save(existingBook);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBook(@PathVariable Long id){
+        if(!bookRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Book not found");
+        }
+        bookRepository.deleteById(id);
+    }
 }
