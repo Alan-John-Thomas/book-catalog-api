@@ -10,6 +10,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book createBook(@RequestBody Book book){
+    public Book createBook(@RequestBody @Valid Book book){
         return bookRepository.save(book);
     }
 
@@ -34,7 +36,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public Book putBook(@PathVariable Long id,@RequestBody Book bookDetails){
+    public Book putBook(@PathVariable Long id,@RequestBody @Valid Book bookDetails){
         Book existingBook = bookRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
 
