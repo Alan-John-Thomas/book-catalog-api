@@ -3,7 +3,7 @@ GET http://localhost:8080/api/books
 
 ###
 
-### Create a new book (Valid data - Should return 201)
+### Create a new book
 POST http://localhost:8080/api/books
 Content-Type: application/json
 
@@ -16,37 +16,17 @@ Content-Type: application/json
 
 ###
 
-### Create a new book with INVALID data (Should return 400 Bad Request)
-# Title is empty, year is in the future
-POST http://localhost:8080/api/books
+### Create a review for book ID 1 (Nested Post)
+POST http://localhost:8080/api/books/1/reviews
 Content-Type: application/json
 
 {
-  "title": "Head",
-  "author": "J.R.R. Tolkien",
-  "isbn": "978-0261103579",
-  "publishedYear": 3200
+  "reviewerName": "Alan",
+  "rating": 5,
+  "comment": "An absolute masterpiece of fantasy literature!"
 }
 
 ###
 
-### Get a specific book by ID
-GET http://localhost:8080/api/books/1
-
-###
-
-### Update the book (PUT)
-PUT http://localhost:8080/api/books/1
-Content-Type: application/json
-
-{
-  "title": "The Fellowship of the Ring (Revised)",
-  "author": "J.R.R. Tolkien",
-  "isbn": "978-0261103573",
-  "publishedYear": 1954
-}
-
-###
-
-### Delete a book (DELETE)
-DELETE http://localhost:8080/api/books/1
+### Get all books again (Should now include the reviews nested inside book ID 1!)
+GET http://localhost:8080/api/books

@@ -1,5 +1,6 @@
 package com.education.bookcatalog.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -27,7 +28,8 @@ public class Review {
     private String comment;
 
     @ManyToOne
-    // creates a foreign key column named bookId whose values is check with Book(as Book book) is annotated tables primary key by default.
+    // creates a foreign key column named bookId whose values is checked with Book(as Book book) is annotated tables primary key by default.
     @JoinColumn(name = "book_id",nullable = false) // use referencedColumnName to check the entry in bookId with other rows like ISBN,author etc. in Book table than the default primary key.
+    @JsonBackReference
     private Book book;
 }
